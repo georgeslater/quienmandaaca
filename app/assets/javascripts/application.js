@@ -12,4 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require tabs
 //= require_tree .
+
+$(function() {
+	$('#addressbtn').click( function() {
+		alert("Hi Mom!");
+	});
+});
