@@ -1,71 +1,22 @@
 <html>
   <head>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBxRP7f6B-IZithOjDT5t2KpH8OH3KqDFE&sensor=false&language=es&region=UY">
+    </script>
+    <script type="text/javascript">
+        losBarrios = <%= @barrios.to_s.html_safe %>;
+        console.log(losBarrios);
+    </script>
+    <% content_for :javascript_includes do %>
+      <%= javascript_include_tag "static_pages.js" %>
+    <% end %>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
       #map_canvas { height: 100% }
     </style>
-    <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBxRP7f6B-IZithOjDT5t2KpH8OH3KqDFE&sensor=false&language=es&region=UY">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var myOptions = {
-          center: new google.maps.LatLng(-34.88, -56.20),
-          zoom: 13,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            myOptions);
-
-        var polyCoords = [];
-          
-        var pocitos = [
-
-          new google.maps.LatLng(-34.874252, -56.130262),
-          new google.maps.LatLng(-34.874252, -56.118292),
-          new google.maps.LatLng(-34.890001, -56.118292),
-          new google.maps.LatLng(-34.890001, -56.130262)
-        ]
-          
-        polyCoords.push(pocitos);          
-
-        var puntaCarretas = [
-
-          new google.maps.LatLng(-34.859001, -56.130262),
-          new google.maps.LatLng(-34.859001, -56.118292),
-          new google.maps.LatLng(-34.874251, -56.118292),
-          new google.maps.LatLng(-34.874251, -56.130262)
-        ]
-
-        polyCoords.push(puntaCarretas);
-
-        for(var j = 0; j<polyCoords.length; j++){
-
-          var thisPoly = polyCoords[j];
-
-          var myPoly = new google.maps.Polygon({
-          clickable: true,
-          paths: thisPoly,
-          strokeColor: "#FF0000",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: "#FF0000",
-          fillOpacity: 0.35
-          });
-
-          myPoly.setMap(map);
-
-          google.maps.event.addListener(myPoly, 'click', function(){
-
-            this.setOptions({ fillColor: '#000000'});
-          });
-
-        }
-      }
-    </script>
+    
   </head>
   <body onload="initialize()">
     <div class="addressboxes">

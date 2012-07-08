@@ -1,21 +1,91 @@
-function showArrays(event) {
+function initialize() {
 
-  // Since this Polygon only has one path, we can call getPath()
-  // to return the MVCArray of LatLngs
-  var vertices = this.getPath();
+  var myOptions = {
+          center: new google.maps.LatLng(-34.88, -56.20),
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+        
+  var map = new google.maps.Map(document.getElementById("map_canvas"),
+                myOptions);
 
-  var contentString = "<b>Bermuda Triangle Polygon</b><br />";
-  contentString += "Clicked Location: <br />" + event.latLng.lat() + "," + event.latLng.lng() + "<br />";
+  var polyCoords = [];
 
-  // Iterate over the vertices.
-  for (var i =0; i < vertices.length; i++) {
-    var xy = vertices.getAt(i);
-    contentString += "<br />" + "Coordinate: " + i + "<br />" + xy.lat() +"," + xy.lng();
-  }
+  for(var i=0;i<losBarrios.length;i++){
+  
+    var obj = losBarrios[i];
+    var colorActual = obj.color;      
+    var barrioCoords = [];
 
-  // Replace our Info Window's content and position
-  infowindow.setContent(contentString);
-  infowindow.setPosition(event.latLng);
+    for(var j = 0; j<obj.coordinates.length; j++){
 
-  infowindow.open(map);
-}
+      var coordinate = obj.coordinates[j];
+
+      if(coordinate.xcoordinate != null && coordinate.ycoordinate != null){
+
+        var ll = new google.maps.LatLng(coordinate.xcoordinate, coordinate.ycoordinate);
+        barrioCoords.push(ll);
+      }
+    }
+
+    if(barrioCoords != null){
+
+          var thePoly = new google.maps.Polygon({
+
+            clickable: true,
+            paths: barrioCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: colorActual,
+            fillOpacity: 0.35
+          });
+
+          thePoly.setMap(map);
+    }
+    
+
+        /*
+        var pocitos = [
+
+          new google.maps.LatLng(-34.874252, -56.130262),
+          new google.maps.LatLng(-34.874252, -56.118292),
+        * new google.maps.LatLng(-34.890001, -56.118292),
+         * new google.maps.LatLng(-34.890001, -56.130262)
+        ]
+          
+        polyCoords.push(pocitos);          
+
+        var puntaCarretas = [
+
+          new google.maps.LatLng(-34.859001, -56.130262),
+          new google.maps.LatLng(-34.859001, -56.118292),
+          new google.maps.LatLng(-34.874251, -56.118292),
+          new google.maps.LatLng(-34.874251, -56.130262)
+        ]
+
+        polyCoords.push(puntaCarretas);
+
+        for(var j = 0; j<polyCoords.length; j++){
+
+          var thisPoly = polyCoords[j];
+
+          var myPoly = new google.maps.Polygon({
+          clickable: true,
+          paths: thisPoly,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35
+          });
+
+          myPoly.setMap(map);
+
+          google.maps.event.addListener(myPoly, 'click', function(){
+
+            this.setOptions({ fillColor: '#000000'});
+          });
+          */
+        }
+      }

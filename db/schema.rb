@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701000703) do
+ActiveRecord::Schema.define(:version => 20120708001059) do
 
   create_table "coordinates", :force => true do |t|
     t.decimal  "xcoordinate"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120701000703) do
     t.string   "country"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "color"
   end
 
   create_table "teams", :force => true do |t|
