@@ -12,7 +12,6 @@ function initialize() {
   var polyCoords = [];
 
   for(var i=0;i<losBarrios.length;i++){
-  
     var obj = losBarrios[i];
     var colorActual = obj.color;      
     var barrioCoords = [];
@@ -29,6 +28,8 @@ function initialize() {
     }
 
     if(barrioCoords != null){
+
+          console.log(barrioCoords);
 
           var thePoly = new google.maps.Polygon({
 
