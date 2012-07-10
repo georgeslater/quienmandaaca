@@ -29,22 +29,37 @@ function initialize() {
 
     if(barrioCoords != null){
 
-          console.log(barrioCoords);
-
           var thePoly = new google.maps.Polygon({
 
             clickable: true,
             paths: barrioCoords,
             strokeColor: "#FF0000",
             strokeOpacity: 0.8,
-            strokeWeight: 2,
+            strokeWeight: 5,
             fillColor: colorActual,
             fillOpacity: 0.35
           });
 
           thePoly.setMap(map);
+          polyCoords.push(thePoly);
     }
-    
+
+  }
+
+  for(var k = 0; k < polyCoords.length; k++){
+
+    console.log('added poly');
+
+    var myPoly = polyCoords[k];
+
+    google.maps.event.addListener(myPoly, 'click', function(){
+
+            console.log('fired poly function');
+            $(".teamChooser").css("visibility", "visible");
+            //this.setOptions({ fillColor: '#FF3366'});
+    });
+  }
+
 
         /*
         var pocitos = [
@@ -88,5 +103,5 @@ function initialize() {
             this.setOptions({ fillColor: '#000000'});
           });
           */
-        }
+        
       }
